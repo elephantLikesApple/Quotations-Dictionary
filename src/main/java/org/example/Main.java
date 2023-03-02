@@ -9,12 +9,18 @@ public class Main {
     private static List<Quotation> quotationList = new ArrayList<>();
     private static int index = 0;
     public static void main(String[] args) {
+        int id = 0;
         System.out.println("== 명언 앱 ==");
         String command;
         while(true) {
             System.out.printf("명령) ");
-            command = sc.nextLine();
+            command = sc.nextLine().trim();
             if(command.equals("종료")) break;
+            if(command.length()>2) {
+                String[] commands = commandParsing(command);
+                command = commands[0];
+                id = Integer.parseInt(commands[1]);
+            }
             switch(command) {
                 case "등록":
                     create();
@@ -22,6 +28,10 @@ public class Main {
                     break;
                 case "목록":
                     listUp();
+                    break;
+                case "삭제":
+                    delete(id);
+                    System.out.println(id + "번 명언이 삭제되었습니다.");
                     break;
                 default:
                     System.out.println("해결할 수 없는 명령입니다!");
@@ -50,5 +60,19 @@ public class Main {
                     quotationList.get(i).getContext()
             );
         }
+    }
+
+    public static boolean delete(int id) {
+        Quotation target = null;
+        for(Quotation quotation : quotationList) {
+            if(quotation.getNumber() == id) target = quotation;
+        }
+        if(target == null) return false;
+
+        return quotationList.remove(target);
+    }
+
+    public static String[] commandParsing(String command) {
+        return new String[] {command.substring(0,2), command.substring(6, command.length())};
     }
 }
