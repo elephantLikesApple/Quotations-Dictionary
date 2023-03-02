@@ -15,6 +15,7 @@ public class Main {
             switch(command) {
                 case "등록":
                     create();
+                    System.out.println("1번 명언이 등록되었습니다.");
                     break;
                 default:
                     System.out.println("해결할 수 없는 명령입니다!");
