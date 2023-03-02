@@ -1,7 +1,7 @@
-package org.example;
+package org.example.quotation.entity;
 
 public class Quotation {
-    private int number;
+    private int id;
     private String context;
     private String author;
 
@@ -11,7 +11,7 @@ public class Quotation {
     public Quotation(String context, String author, int number) {
         this.context = context;
         this.author = author;
-        this.number = number;
+        this.id = number;
     }
 
     public String getContext() {
@@ -22,8 +22,8 @@ public class Quotation {
         return author;
     }
 
-    public int getNumber() {
-        return number;
+    public int getId() {
+        return id;
     }
 
     public void setContext(String context) {
@@ -32,9 +32,5 @@ public class Quotation {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 }
