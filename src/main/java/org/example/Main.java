@@ -36,6 +36,13 @@ public class Main {
                     }
                     System.out.println(id + "번 명언이 삭제되었습니다.");
                     break;
+                case "수정":
+                    if(!modify(id)){
+                        System.out.println(id + "번 명언은 존재하지 않습니다.");
+                        break;
+                    }
+                    System.out.println(id + "번 명언이 수정되었습니다.");
+                    break;
                 default:
                     System.out.println("해결할 수 없는 명령입니다!");
             }
@@ -73,6 +80,26 @@ public class Main {
         if(target == null) {return false;}
 
         return quotationList.remove(target);
+    }
+
+
+    private static boolean modify(int id) {
+        Quotation target = null;
+        for(Quotation quotation : quotationList) {
+            if(quotation.getNumber() == id) target = quotation;
+        }
+        if(target == null) {return false;}
+        try {
+            System.out.println("명언(기존) : " + target.getContext());
+            System.out.printf("명언 : ");
+            target.setContext(sc.nextLine());
+            System.out.println("작가(기존) : " + target.getAuthor());
+            System.out.printf("작가 : ");
+            target.setAuthor(sc.nextLine());
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public static String[] commandParsing(String command) {
