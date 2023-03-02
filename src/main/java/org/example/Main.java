@@ -55,6 +55,10 @@ public class Main {
                     }
                     System.out.println(id + "번 명언이 수정되었습니다.");
                     break;
+                case "빌드":
+                    save();
+                    System.out.println(savedPath + " 파일의 내용이 갱신되었습니다.");
+                    break;
                 default:
                     System.out.println("해결할 수 없는 명령입니다!");
             }
