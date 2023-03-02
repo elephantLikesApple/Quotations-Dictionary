@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner sc = new Scanner(System.in);
-
+    public static int index = 0;
     public static void main(String[] args) {
         System.out.println("== 명언 앱 ==");
         String command;
@@ -14,8 +14,9 @@ public class Main {
             if(command.equals("종료")) break;
             switch(command) {
                 case "등록":
+                    index++;
                     create();
-                    System.out.println("1번 명언이 등록되었습니다.");
+                    System.out.println(index + "번 명언이 등록되었습니다.");
                     break;
                 default:
                     System.out.println("해결할 수 없는 명령입니다!");
