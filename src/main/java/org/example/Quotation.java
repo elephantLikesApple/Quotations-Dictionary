@@ -5,6 +5,9 @@ public class Quotation {
     private String context;
     private String author;
 
+    public Quotation() {
+    }
+
     public Quotation(String context, String author, int number) {
         this.context = context;
         this.author = author;

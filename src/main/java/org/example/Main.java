@@ -1,21 +1,33 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner sc = new Scanner(System.in);
+    private static String savedPath = "src\\quotation-dictionary.json";
     private static List<Quotation> quotationList = new ArrayList<>();
+    private static ObjectMapper mapper = new ObjectMapper();
     private static int index = 0;
+
     public static void main(String[] args) {
-        int id = 0;
+        int id = 0; String command;
+        road();
         System.out.println("== 명언 앱 ==");
-        String command;
         while(true) {
             System.out.printf("명령) ");
             command = sc.nextLine().trim();
-            if(command.equals("종료")) break;
+            if(command.equals("종료")) { save(); break; }
             if(command.length()>2) {
                 String[] commands = commandParsing(command);
                 command = commands[0];
@@ -91,10 +103,10 @@ public class Main {
         if(target == null) {return false;}
         try {
             System.out.println("명언(기존) : " + target.getContext());
-            System.out.printf("명언 : ");
+            System.out.print("명언 : ");
             target.setContext(sc.nextLine());
             System.out.println("작가(기존) : " + target.getAuthor());
-            System.out.printf("작가 : ");
+            System.out.print("작가 : ");
             target.setAuthor(sc.nextLine());
         } catch (Exception e) {
             return false;
@@ -103,6 +115,27 @@ public class Main {
     }
 
     public static String[] commandParsing(String command) {
-        return new String[] {command.substring(0,2), command.substring(6, command.length())};
+        return new String[] {command.substring(0,2), command.substring(6)};
+    }
+
+    public static void save() {
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(savedPath), quotationList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void road() {
+        try {
+            Quotation[] q = mapper.readValue(new File(savedPath), Quotation[].class);
+            quotationList.addAll(Arrays.asList(q));
+            index = quotationList.size();
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
