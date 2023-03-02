@@ -17,6 +17,4 @@ public class Main {
         App.run();
         Container.close();
     }
-
-
 }

@@ -7,12 +7,13 @@ public class QuotationController {
     public static void create() {
         Container.setIndex(Container.getIndex()+1);
         String context, author;
-        System.out.printf("명언 : ");
+        System.out.print("명언 : ");
         context = Container.getScanner().nextLine();
-        System.out.printf("작가 : ");
+        System.out.print("작가 : ");
         author = Container.getScanner().nextLine();
 
         Container.getQuotationList().add(new Quotation(context, author, Container.getIndex()));
+        System.out.println(Container.getIndex() + "번 명언이 등록되었습니다.");
     }
 
     public static void listUp() {
@@ -27,23 +28,39 @@ public class QuotationController {
         }
     }
 
-    public static boolean delete(int id) {
-        Quotation target = null;
-        for(Quotation quotation : Container.getQuotationList()) {
-            if(quotation.getId() == id) target = quotation;
-        }
-        if(target == null) {return false;}
+    public static Quotation findTarget(int id) {
+        return Container.getQuotationList().stream().filter(e -> e.getId() == id).findFirst().orElse(null);
+    }
 
+    public static void delete(int id) {
+        if(deleteComplete(id)) {
+            System.out.println(id + "번 명언이 삭제되었습니다.");
+        }
+        else System.out.println(id + "번 명언은 존재하지 않습니다.");
+    }
+
+    public static boolean deleteComplete(int id) {
+        Quotation target = findTarget(id);
+        if(target == null) return false;
         return Container.getQuotationList().remove(target);
     }
 
-
-    public static boolean modify(int id) {
-        Quotation target = null;
-        for(Quotation quotation : Container.getQuotationList()) {
-            if(quotation.getId() == id) target = quotation;
+    public static void modify(int id) {
+        if(modifyComplete(id)) {
+            System.out.println(id + "번 명언이 수정되었습니다.");
         }
-        if(target == null) {return false;}
+        else System.out.println(id + "번 명언은 존재하지 않습니다.");
+    }
+
+    public static boolean modifyComplete(int id) {
+        Quotation target = findTarget(id);
+        if(target == null) {
+            return false;
+        }
+        return modifyInput(target);
+    }
+
+    public static boolean modifyInput(Quotation target) {
         try {
             System.out.println("명언(기존) : " + target.getContext());
             System.out.print("명언 : ");

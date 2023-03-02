@@ -45,10 +45,6 @@ public class Container {
         return index;
     }
 
-    public static void setQuotationList(List<Quotation> quotationList) {
-        Container.quotationList = quotationList;
-    }
-
     public static void setIndex(int index) {
         Container.index = index;
     }
