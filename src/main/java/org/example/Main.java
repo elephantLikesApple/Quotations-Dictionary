@@ -30,7 +30,10 @@ public class Main {
                     listUp();
                     break;
                 case "삭제":
-                    delete(id);
+                    if(!delete(id)){
+                        System.out.println(id + "번 명언은 존재하지 않습니다.");
+                        break;
+                    }
                     System.out.println(id + "번 명언이 삭제되었습니다.");
                     break;
                 default:
@@ -67,7 +70,7 @@ public class Main {
         for(Quotation quotation : quotationList) {
             if(quotation.getNumber() == id) target = quotation;
         }
-        if(target == null) return false;
+        if(target == null) {return false;}
 
         return quotationList.remove(target);
     }
