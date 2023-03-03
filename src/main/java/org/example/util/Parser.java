@@ -1,9 +1,9 @@
-package org.example.system.controller;
+package org.example.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SystemController {
+public class Parser {
     public static Map<String, String> commandParser(String command) {
         Map<String, String> commandMap = new HashMap<>();
         String[] str = command.split("\\?", 2);

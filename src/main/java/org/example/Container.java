@@ -20,7 +20,6 @@ public class Container {
         quotationList = new ArrayList<>();
         mapper = new ObjectMapper();
         index = 0;
-        BuildController.road();
     }
 
     public static void close() {

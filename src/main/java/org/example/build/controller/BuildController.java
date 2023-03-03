@@ -1,39 +1,20 @@
 package org.example.build.controller;
 
-import org.example.Container;
-import org.example.quotation.entity.Quotation;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Comparator;
+import org.example.build.service.BuildService;
 
 public class BuildController {
-    public static void build(){
-        save();
-        System.out.println(Container.getSavedPath() + " 파일의 내용이 갱신되었습니다.");
+    private final BuildService buildService = new BuildService();
+    public void build(){
+        String path = buildService.save();
+        System.out.println(path + " 파일의 내용이 갱신되었습니다.");
     }
 
-    public static void save() {
-        try {
-            Container.getMapper().writerWithDefaultPrettyPrinter().writeValue(new File(Container.getSavedPath()), Container.getQuotationList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void save() {
+        String path = buildService.save();
+        System.out.println(path + " 파일에 저장했습니다.");
     }
 
-    public static void road() {
-        try {
-            Quotation[] q = Container.getMapper().readValue(new File(Container.getSavedPath()), Quotation[].class);
-            Container.getQuotationList().addAll(Arrays.asList(q));
-            Comparator<Quotation> comparatorById = Comparator.comparingInt(Quotation::getId);
-            Quotation maxIdValue = Container.getQuotationList().stream().max(comparatorById).orElse(new Quotation("","",0));
-            Container.setIndex(maxIdValue.getId());
-        } catch (FileNotFoundException e) {
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void road() {
+        buildService.road();
     }
 }
