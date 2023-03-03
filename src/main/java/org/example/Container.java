@@ -1,6 +1,7 @@
 package org.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.build.controller.BuildController;
 import org.example.quotation.entity.Quotation;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Container {
         quotationList = new ArrayList<>();
         mapper = new ObjectMapper();
         index = 0;
+        BuildController.road();
     }
 
     public static void close() {
